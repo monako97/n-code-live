@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "allowSyntheticDefaultImports": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+    },
+    "outDir": "lib",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "newLine": "lf",
+    "lib": ["es2016", "DOM"],
+    "typeRoots": ["node_modules/@types", "typings", "index.d.ts"]
+  },
+  "exclude": ["node_modules"],
+  "include": ["src"],
+}

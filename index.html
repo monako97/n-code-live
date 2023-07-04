@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="./umd/index.js"></script>
+</head>
+
+<body>
+    <div style="display:flex;gap:24px;">
+        <div style="flex:1;">
+            <h2>渲染html:</h2>
+            <n-code-live class="html" jsx="false"></n-code-live>
+            <textarea id="html-input" placeholder="html" style="width:100%;height: 400px;"></textarea>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const htmlLive = document.querySelector(".html");
+        const htmlText = document.querySelector("#html-input");
+
+        htmlText.value = `<p style="color:red;">这是渲染的html标sacsacsas签</p>
+<script>
+  // 使用 container 来获取渲染容器, 你可以使用这个来进行 dom 脚本操作
+  const el = container.querySelector('p');
+  let flag = false;
+
+  console.log('还支持script标签', el);
+
+  // 你也可以写 JSX 语法, 比如箭头函数
+  setInterval(() => {
+    el.style.color = flag ? 'red' : 'blue';
+    flag = !flag;
+  }, 1000);
+    <\/script>`;
+
+    htmlLive.source = htmlText.value;
+    htmlText.addEventListener("input", function (e) {
+      htmlLive.source = (e.target).value;
+    });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "n-code-live",
+  "version": "1.0.0",
+  "description": "code live for web component",
+  "author": "moneko",
+  "module": "./umd/index.js",
+  "main": "./umd/index.js",
+  "types": "./index.d.ts",
+  "browser": {
+    "./lib/index.js": "./umd/index.js"
+  },
+  "keywords": [
+    "code",
+    "n-code-live",
+    "live",
+    "preview",
+    "jsx live",
+    "jsx preview"
+  ],
+  "scripts": {
+    "start": "mo start single-component solid-js",
+    "build": "mo build single-component solid-js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@moneko/cli": "2.0.0-beta.5",
+    "@moneko/core": "3.0.0-beta.43",
+    "solid-js": "1.7.7",
+    "sucrase": "3.32.0"
+  },
+  "files": [
+    "umd",
+    "index.d.ts",
+    "README.md"
+  ]
+}
