@@ -136,7 +136,7 @@ class CodeLive extends HTMLElement {
           this.box.replaceChildren();
           const comp = this.compiler(this.source, this.scope);
 
-          this.cleanup = this.renderJsx(comp, this.shadowRoot);
+          this.cleanup = this.renderJsx(comp, this.box);
           return;
         }
 
