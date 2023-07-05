@@ -18,8 +18,11 @@ class CodeLive extends HTMLElement {
   _error?: Error;
   _scope?: MDXComponents = {};
   _transform?: TransformOption = {};
-  _renderJsx = function (dom: Component, root = this.shadowRoot): VoidFunction | void {
-    return isFunction(dom) ? dom() : dom as unknown as VoidFunction;
+  _renderJsx = function (
+    dom: Component,
+    root = this.shadowRoot
+  ): VoidFunction | void {
+    return isFunction(dom) ? dom() : (dom as unknown as VoidFunction);
   };
   scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/;
   box = document.createElement("div");
@@ -31,6 +34,7 @@ class CodeLive extends HTMLElement {
     super();
     const shadowRoot = this.attachShadow({ mode: "open" });
 
+    this.box.setAttribute("part", "root");
     shadowRoot.innerHTML = `<div></div>`;
   }
 
@@ -76,7 +80,7 @@ class CodeLive extends HTMLElement {
     for (let i = 0, len = msgs.length - 1; i < len; i++) {
       msg += `<div>${msgs[i]}</div>`;
     }
-    return `<details class="n-live-error" style="color: red;">
+    return `<details style="color: red;" part="error">
     <summary>
       ${this._error.name}: ${this._error.message}
     </summary>

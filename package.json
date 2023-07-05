@@ -1,6 +1,6 @@
 {
   "name": "n-code-live",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "code live for web component",
   "author": "moneko",
   "module": "./umd/index.js",
