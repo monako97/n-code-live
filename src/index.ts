@@ -25,17 +25,16 @@ class CodeLive extends HTMLElement {
     return isFunction(dom) ? dom() : (dom as unknown as VoidFunction);
   };
   scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/;
-  box = document.createElement("div");
+  box: HTMLDivElement;
   cleanup?: VoidFunction | void;
   static get observedAttributes() {
     return ["jsx", "scope", "source", "transform", "renderJsx"];
   }
   constructor() {
     super();
-    const shadowRoot = this.attachShadow({ mode: "open" });
-
+    this.attachShadow({ mode: "open" });
+    this.box = document.createElement("div");
     this.box.setAttribute("part", "root");
-    shadowRoot.innerHTML = `<div></div>`;
   }
 
   compilerScript(code: string, scope = {}) {
@@ -151,7 +150,7 @@ class CodeLive extends HTMLElement {
       } catch (error) {
         this.error = error;
       }
-    }, 32);
+    }, 8);
   }
   attributeChangedCallback(name: "jsx", old: string, next: string) {
     if (old !== next && name === "jsx") {
