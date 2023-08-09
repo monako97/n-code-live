@@ -2,9 +2,9 @@
 
 > Code Live for webcomponent
 
-**[Demo](https://monako97.github.io/neko-ui/code-live)**
+**[Demo](https://monako97.github.io/neko-ui/)**
 
-**[Docs](https://monako97.github.io/neko-ui/code-live)**
+**[Docs](https://monako97.github.io/neko-ui/)**
 
 ```html
 <div style="display:flex;gap:24px;">
