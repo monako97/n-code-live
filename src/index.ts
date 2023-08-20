@@ -54,14 +54,17 @@ class CodeLive extends HTMLElement {
 
     return new Function(
       ...Object.keys(scopes),
-      transform(`return (${/^<.*>$/s.test(_source) ? `<>${_source}</>` : _source})`, {
-        transforms: ["jsx", "typescript", "imports"],
-        jsxPragma: "jsx",
-        jsxFragmentPragma: "Fragment",
-        jsxImportSource: "solid-js/h",
-        production: true,
-        ...this.transform,
-      }).code
+      transform(
+        `return (${/^<.*>$/s.test(_source) ? `<>${_source}</>` : _source})`,
+        {
+          transforms: ["jsx", "typescript", "imports"],
+          jsxPragma: "jsx",
+          jsxFragmentPragma: "Fragment",
+          jsxImportSource: "solid-js/h",
+          production: true,
+          ...this.transform,
+        }
+      ).code
     )(...Object.values(scopes));
   }
   get renderJsx() {
@@ -79,12 +82,7 @@ class CodeLive extends HTMLElement {
     for (let i = 0, len = msgs.length - 1; i < len; i++) {
       msg += `<div>${msgs[i]}</div>`;
     }
-    return `<details style="color: red;" part="error">
-    <summary>
-      ${this._error.name}: ${this._error.message}
-    </summary>
-    ${msg}
-  </details>`;
+    return `<details style="color: red;" part="error"><summary>${this._error.name}: ${this._error.message}</summary>${msg}</details>`;
   }
 
   set error(next: Error) {
@@ -145,7 +143,10 @@ class CodeLive extends HTMLElement {
 
         const match = this.source?.match(this.scriptRegex);
         if (match) {
-          this.compilerScript(match[1], { container: this.shadowRoot });
+          this.compilerScript(match[1], {
+            ...this.scope,
+            container: this.shadowRoot,
+          });
         }
       } catch (error) {
         this.error = error;
