@@ -55,7 +55,7 @@ class CodeLive extends HTMLElement {
     return new Function(
       ...Object.keys(scopes),
       transform(
-        `return (${/^<.*>$/s.test(_source) ? `<>${_source}</>` : _source})`,
+        `return (${/^<[\s\S]*>$/.test(_source) ? `<>${_source}</>` : _source})`,
         {
           transforms: ["jsx", "typescript", "imports"],
           jsxPragma: "jsx",
