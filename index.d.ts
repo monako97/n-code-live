@@ -64,6 +64,6 @@ declare global {
   export namespace JSX {
     export interface IntrinsicElements extends CustomElementTags {}
     export interface ElementClass {}
-    export interface Element {}
+    export type Element = any;
   }
 }
