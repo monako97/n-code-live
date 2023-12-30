@@ -16,7 +16,7 @@ class CodeLive extends HTMLElement {
   timer?: NodeJS.Timeout;
   _source?: string;
   _error?: Error;
-  _scope?: MDXComponents = {};
+  _components?: MDXComponents = {};
   _transform?: TransformOption = {};
   _renderJsx = function (
     dom: Component,
@@ -28,7 +28,7 @@ class CodeLive extends HTMLElement {
   box: HTMLDivElement;
   cleanup?: VoidFunction | void;
   static get observedAttributes() {
-    return ["jsx", "scope", "source", "transform", "renderJsx"];
+    return ["jsx", "components", "source", "transform", "renderJsx"];
   }
   constructor() {
     super();
@@ -37,13 +37,13 @@ class CodeLive extends HTMLElement {
     this.box.setAttribute("part", "root");
   }
 
-  compilerScript(code: string, scope = {}) {
-    return new Function(...Object.keys(scope), code)(...Object.values(scope));
+  compilerScript(code: string, component = {}) {
+    return new Function(...Object.keys(component), code)(...Object.values(component));
   }
-  compiler(code?: string, scope?: MDXComponents) {
+  compiler(code?: string, component?: MDXComponents) {
     if (!code) return null;
 
-    const scopes = { ...scope };
+    const components = { ...component };
     const codeTrimmed = code
       .trim()
       .replace(/;$/, "")
@@ -53,7 +53,7 @@ class CodeLive extends HTMLElement {
     ).replace("render(", "return (");
 
     return new Function(
-      ...Object.keys(scopes),
+      ...Object.keys(components),
       transform(
         `return (${/^<[\s\S]*>$/.test(_source) ? `<>${_source}</>` : _source})`,
         {
@@ -65,7 +65,7 @@ class CodeLive extends HTMLElement {
           ...this.transform,
         }
       ).code
-    )(...Object.values(scopes));
+    )(...Object.values(components));
   }
   get renderJsx() {
     return this._renderJsx;
@@ -98,11 +98,11 @@ class CodeLive extends HTMLElement {
     this._transform = next;
     this.mount();
   }
-  get scope() {
-    return this._scope;
+  get components() {
+    return this._components;
   }
-  set scope(next: MDXComponents) {
-    this._scope = next;
+  set components(next: MDXComponents) {
+    this._components = next;
     this.mount();
   }
   get source(): string {
@@ -132,7 +132,7 @@ class CodeLive extends HTMLElement {
         this.error = null;
         if (this.jsx) {
           this.box.replaceChildren();
-          const comp = this.compiler(this.source, this.scope);
+          const comp = this.compiler(this.source, this.components);
 
           this.cleanup = this.renderJsx(comp, this.box);
           return;
@@ -144,7 +144,7 @@ class CodeLive extends HTMLElement {
         const match = this.source?.match(this.scriptRegex);
         if (match) {
           this.compilerScript(match[1], {
-            ...this.scope,
+            ...this.components,
             container: this.shadowRoot,
           });
         }

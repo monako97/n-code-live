@@ -101,9 +101,9 @@ render(
 
 ## API
 
-| 属性      | 说明                       | 类型              | 默认值  | 版本 |
-| --------- | -------------------------- | ----------------- | ------- | ---- |
-| jsx       | 是否为 jsx 语法            | `boolean`         | `false` | -    |
-| source    | 需要渲染的代码             | `string`          | -       | -    |
-| scope     | 需要插入到代码中的局部变量 | `MDXComponents`   | -       | -    |
-| transform | 代码配置项                 | `TransformOption` | -       | -    |
+| 属性       | 说明                       | 类型              | 默认值  | 版本 |
+| ---------- | -------------------------- | ----------------- | ------- | ---- |
+| jsx        | 是否为 jsx 语法            | `boolean`         | `false` | -    |
+| source     | 需要渲染的代码             | `string`          | -       | -    |
+| components | 需要插入到代码中的局部变量 | `MDXComponents`   | -       | -    |
+| transform  | 代码配置项                 | `TransformOption` | -       | -    |

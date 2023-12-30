@@ -55,7 +55,7 @@ function Fragment(p: SolidJS.VoidProps) {
   return p.children;
 }
 
-jsxLive.scope = {
+jsxLive.components = {
   jsx: jsx,
   Fragment: Fragment,
   ...SolidJS,

@@ -40,7 +40,7 @@ export interface TransformOption {
 }
 export interface CodeLiveProps {
   source?: string;
-  scope?: MDXComponents | Record<string, any>;
+  components?: MDXComponents | Record<string, any>;
   /** 是否为jsx语法 */
   jsx?: boolean;
   /** jsx语法的 render 函数 */
