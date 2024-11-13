@@ -8,7 +8,7 @@ document.body.innerHTML = `
 <div style="display:flex;gap:24px;">
     <div style="flex:1;">
         <h2>渲染html:</h2>
-        <n-code-live class="html" jsx="false"></n-code-live>
+        <n-code-live shadow="false" class="html" jsx="false"></n-code-live>
         <textarea id="html-input" placeholder="html" style="width:100%;height: 400px;"></textarea>
     </div>
     <div style="flex:1;">

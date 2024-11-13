@@ -16,6 +16,7 @@ class CodeLive extends HTMLElement {
   timer?: NodeJS.Timeout;
   _source?: string;
   _error?: Error;
+  _shadow?: boolean;
   _components?: MDXComponents = {};
   _transform?: TransformOption = {};
   _renderJsx = function (
@@ -32,7 +33,10 @@ class CodeLive extends HTMLElement {
   }
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    const useShadow = this.getAttribute("shadow") !== "false";
+    if (useShadow) {
+      this.attachShadow({ mode: "open" });
+    }
     this.box = document.createElement("div");
     this.box.setAttribute("part", "root");
   }
@@ -87,9 +91,12 @@ class CodeLive extends HTMLElement {
 
   set error(next: Error) {
     this._error = next;
-
     this.box.innerHTML = this.error;
-    this.shadowRoot.replaceChildren(this.box);
+    if (this.shadow) {
+      this.shadowRoot.replaceChildren(this.box);
+    } else {
+      this.replaceChildren(this.box);
+    }
   }
   get transform() {
     return this._transform;
@@ -110,6 +117,13 @@ class CodeLive extends HTMLElement {
   }
   set source(next: string) {
     this._source = next;
+    this.mount();
+  }
+  get shadow(): boolean {
+    return this.getAttribute("shadow") !== "false";
+  }
+  set shadow(next: string) {
+    this.setAttribute("shadow", next ? "true" : "false");
     this.mount();
   }
   get jsx(): boolean {
@@ -137,15 +151,18 @@ class CodeLive extends HTMLElement {
           this.cleanup = this.renderJsx(comp, this.box);
           return;
         }
-
         this.box.innerHTML = this.source?.replace(this.scriptRegex, "");
-        this.shadowRoot.replaceChildren(this.box);
 
+        if (this.shadow) {
+          this.shadowRoot.replaceChildren(this.box);
+        } else {
+          this.replaceChildren(this.box);
+        }
         const match = this.source?.match(this.scriptRegex);
         if (match) {
           this.compilerScript(match[1], {
             ...this.components,
-            container: this.shadowRoot,
+            container: this.shadow ? this.shadowRoot : this,
           });
         }
       } catch (error) {
@@ -153,9 +170,13 @@ class CodeLive extends HTMLElement {
       }
     }, 8);
   }
-  attributeChangedCallback(name: "jsx", old: string, next: string) {
-    if (old !== next && name === "jsx") {
-      this.jsx = next;
+  attributeChangedCallback(name: string, old: string, next: string) {
+    if (old !== next) {
+      if (name === "jsx") {
+        this.jsx = next;
+      } else if (name === "shadow") {
+        this.jsx = next;
+      }
     }
   }
 
