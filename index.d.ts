@@ -46,6 +46,8 @@ export interface CodeLiveProps {
   /** jsx语法的 render 函数 */
   renderJsx?(dom: () => JSXElement, root: ShadowRoot): VoidFunction;
   transform?: TransformOption;
+  /** 是否使用 shadow dom */
+  shadow?: boolean;
 }
 
 export interface CodeLiveElement extends CodeLiveProps {
