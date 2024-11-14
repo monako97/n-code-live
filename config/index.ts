@@ -4,7 +4,7 @@ export default {
   bundleAnalyzer: false,
   htmlPluginOption: process.env.NODE_ENV !== 'production' ? {} : false,
   externals: [
-    /^solid/,
-    /ReactHotLoaderTransformer/
+    // /^solid/,
+    // /ReactHotLoaderTransformer/
   ]
 };
