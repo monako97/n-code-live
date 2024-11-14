@@ -79,23 +79,14 @@ setInterval(() => {
 }, 1000);
 
 render(
-  <>
-    <p
-      ref={(e) => (el = e)}
-      style={{
-        color: "red",
-      }}
-    >
+  <p
+    ref={(e) => (el = e)}
+    style={{
+      color: "red",
+    }}
+  >
       这是渲染的jsx标签
     </p>
-    <p
-      style={{
-        color: "red",
-      }}
-    >
-      这是渲染的jsx标签
-    </p>
-  </>
 );
 `;
 
