@@ -43,8 +43,7 @@ class CodeLive extends HTMLElement {
   }
   compiler(code?: string, component?: MDXComponents) {
     if (!code) return null;
-
-    const components = { ...component };
+    const { default: s, ...components } = component;
     const codeTrimmed = code
       .trim()
       .replace(/;$/, "")
