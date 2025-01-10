@@ -8,7 +8,7 @@ import Footer from '@/components/footer';
 import Pagination from '@/components/pagination';
 import Sider from '@/components/sider';
 
-import ChangeLog from '../CHANGELOG.md';
+import ChangeLog from '../CHANGELOG.md?raw';
 
 import './layout.global.css';
 
@@ -41,11 +41,7 @@ function App(p: RouteProps<string>) {
           <site-sandbox-group name={getPathName(location)} />
           <For each={doc()}>{(e) => e()}</For>
           <Show when={!getPathName(location)}>
-            <div class="n-md-box">
-              <div class="n-md-body">
-                <ChangeLog />
-              </div>
-            </div>
+            <n-md text={ChangeLog} />
           </Show>
           <Pagination />
         </div>

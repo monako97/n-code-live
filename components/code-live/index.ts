@@ -1,13 +1,5 @@
 import type { JSXElement } from 'solid-js';
-
-function isFunction(target: Any): target is VoidFunction & ((...v: Any[]) => Any) {
-  return [
-    '[object Function]',
-    '[object AsyncFunction]',
-    '[object GeneratorFunction]',
-    '[object Proxy]',
-  ].includes(Object.prototype.toString.call(target));
-}
+import { isFunction } from '@moneko/common';
 
 export class CodeLive extends HTMLElement {
   timer?: NodeJS.Timeout;
@@ -24,7 +16,6 @@ export class CodeLive extends HTMLElement {
   };
   _worker: Worker | undefined;
   _style: HTMLStyleElement | undefined;
-  prevCode: string | undefined;
   scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/;
   cleanup?: VoidFunction | void;
   static get observedAttributes() {
@@ -33,16 +24,13 @@ export class CodeLive extends HTMLElement {
   workerMessage(e: MessageEvent<string>) {
     const code = e.data;
 
-    if (code !== this.prevCode) {
-      this.prevCode = code;
-      try {
-        const comp = this.compilerScript(code);
+    try {
+      const comp = this.compilerScript(code);
 
-        this.dispose();
-        this.cleanup = this.renderJsx(comp, this.container);
-      } catch (error) {
-        this.error = error as Error;
-      }
+      this.dispose();
+      this.cleanup = this.renderJsx(comp, this.container);
+    } catch (error) {
+      this.error = error as Error;
     }
   }
   compilerScript(code: string, component = {}) {
@@ -100,9 +88,7 @@ export class CodeLive extends HTMLElement {
   setupWorker(enable: boolean) {
     if (enable) {
       if (!this._worker) {
-        this._worker = new Worker(new URL('./worker.ts', import.meta.url), {
-          name: 'compiler.worker',
-        });
+        this._worker = new Worker(new URL('./worker.ts', import.meta.url));
         this._worker.addEventListener('message', this.workerMessage.bind(this));
       }
     } else if (this._worker) {
@@ -180,7 +166,7 @@ export class CodeLive extends HTMLElement {
   connectedCallback() {
     this._style = document.createElement('style');
     this._style.innerText =
-      ".compiling{position:relative;display:block;}.compiling::before{content:'Compiling...';color:var(--text-color, #fff);position:absolute;font-weight:bold;width:100%;height:100%;background-color:rgba(255, 255, 255, 0.2);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;}";
+      ".compiling{position:relative;display:block;}.compiling::before{content:'Compiling...';color:var(--text-color, #fff);position:absolute;z-index:9999;font-weight:bold;width:100%;height:100%;background-color:rgba(255, 255, 255, 0.2);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;}";
 
     if (this.shadow) {
       this.attachShadow({ mode: 'open' });
@@ -189,19 +175,18 @@ export class CodeLive extends HTMLElement {
   }
 
   dispose() {
-    if (isFunction(this.cleanup)) {
-      this.cleanup();
-      this.cleanup = void 0;
-    }
-    this.prevCode = void 0;
-    this.error = void 0;
-    this.container.replaceChildren();
     this.classList.remove('compiling');
 
     if (!this.classList.length) {
       this.removeAttribute('class');
     }
+    this.error = void 0;
+    if (isFunction(this.cleanup)) {
+      this.cleanup();
+      this.cleanup = void 0;
+    }
     this.replaceChildren();
+    this.container.replaceChildren();
   }
 
   disconnectedCallback() {

@@ -1,9 +1,10 @@
 # Change log
 
-## Last
+## [v1.3.2-beta.0](https://github.com/monako97/n-code-live/compare/1.0.6...v1.3.2-beta.0) (1-10-2025)
 
 ### ✨ Features
 
+- worker ([4de6afe](https://github.com/monako97/n-code-live/commit/4de6afe6f6ec2a42dde36236fee4c1e4026dcd83))
 - shadow ([2136c4d](https://github.com/monako97/n-code-live/commit/2136c4d38ca2e9f640358138dd8ba085b56efc1a))
 - shadow ([59f9aac](https://github.com/monako97/n-code-live/commit/59f9aac0c74977fa64b711e1c345dcdfd97833cd))
 - shadow ([7c9f87b](https://github.com/monako97/n-code-live/commit/7c9f87bb2a4f4214a8f21053c1ad118e65711b3f))

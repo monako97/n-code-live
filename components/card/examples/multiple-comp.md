@@ -6,8 +6,8 @@ col: '100%'
 
 ```jsx
 // 案例里面不要进行 import
-// import { createSignal } from 'solid-js';
-// import { Card } from 'n-code-live';
+import { createSignal } from 'solid-js';
+import { Card } from 'n-code-live';
 
 interface ChildProps {
   checked?: boolean;
