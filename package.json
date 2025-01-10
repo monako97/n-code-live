@@ -1,36 +1,40 @@
 {
   "name": "n-code-live",
-  "version": "1.3.1",
-  "description": "code live for web component",
-  "author": "moneko",
-  "module": "./umd/index.js",
-  "main": "./umd/index.js",
-  "types": "./index.d.ts",
-  "browser": {
-    "./lib/index.js": "./umd/index.js"
-  },
-  "keywords": [
-    "code",
-    "n-code-live",
-    "live",
-    "preview",
-    "jsx live",
-    "jsx preview"
-  ],
+  "version": "1.3.2-beta.0",
+  "description": "solid js libraries",
+  "main": "umd/index.js",
+  "types": "lib/code-live/index.d.ts",
   "scripts": {
-    "start": "mo start single-component solid-js",
-    "build": "mo build single-component solid-js"
+    "start": "mo start library solid",
+    "build": "mo build library solid",
+    "lint": "mo eslint [components,site] && mo stylelint [components,site]",
+    "changelog": "mo changelog CHANGELOG.md && git add CHANGELOG.md",
+    "prepare": "mo githooks pre-commit=\"npm run precommit\" commit-msg=\"npx --no -- commitlint --edit ${1}\"",
+    "precommit": "npm run lint && npm run changelog"
   },
   "license": "MIT",
+  "keywords": [
+    "n-code-live",
+    "ui libraries"
+  ],
   "devDependencies": {
-    "@moneko/cli": "2.0.0-beta.9",
-    "@moneko/core": "3.0.0-beta.43",
-    "solid-js": "1.8.7",
+    "@commitlint/cli": "19.6.1",
+    "@commitlint/config-conventional": "19.6.0",
+    "@moneko/core": "3.28.5",
+    "@moneko/css": "1.1.5",
+    "@moneko/solid": "1.10.6",
+    "@moneko/stylelint": "1.0.2",
+    "eslint-config-neko": "3.0.3",
+    "husky": "9.1.7",
+    "neko-ui": "^2.9.4",
+    "solid-js": "1.8.23",
     "sucrase": "3.35.0"
   },
+  "author": "moneko",
   "files": [
+    "LICENSE",
+    "README.md",
     "umd",
-    "index.d.ts",
-    "README.md"
+    "lib"
   ]
 }

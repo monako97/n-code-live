@@ -1,109 +1,58 @@
 # n-code-live
 
-> Code Live for webcomponent
+> solid js libraries
 
-**[Demo](https://monako97.github.io/neko-ui/)**
+[![version][version-tag]][npm-url]
+[![install size][size-tag]][size-url]
+[![download][download-tag]][npm-url]
 
-**[Docs](https://monako97.github.io/neko-ui/)**
+## 使用
 
-```html
-<div style="display:flex;gap:24px;">
-  <div style="flex:1;">
-    <h2>渲染html:</h2>
-    <n-code-live class="html" jsx="false"></n-code-live>
-    <textarea
-      id="html-input"
-      placeholder="html"
-      style="width:100%;height: 400px;"
-    ></textarea>
-  </div>
-  <div style="flex:1;">
-    <h2>渲染jsx:</h2>
-    <n-code-live class="jsx" jsx="true"></n-code-live>
-    <textarea
-      id="jsx-input"
-      placeholder="jsx"
-      style="width:100%;height: 400px;"
-    ></textarea>
-  </div>
-</div>
-<script type="text/javascript">
-  const htmlLive = document.querySelector(".html");
-  const jsxLive = document.querySelector(".jsx");
-  const htmlText = document.querySelector("#html-input");
-  const jsxText = document.querySelector("#jsx-input");
+[![n-code-live][install-tag]][npm-url]
 
-  htmlText.value = `<p style="color:red;">这是渲染的html标sacsacsas签</p>
-<script>
-  // 使用 container 来获取渲染容器, 你可以使用这个来进行 dom 脚本操作
-  const el = container.querySelector('p');
-  let flag = false;
+[npm-url]: https://npmjs.org/package/n-code-live
+[install-tag]: https://nodei.co/npm/n-code-live.png
+[version-tag]: https://img.shields.io/npm/v/n-code-live/latest.svg?logo=npm
+[size-tag]: https://packagephobia.com/badge?p=n-code-live@latest
+[size-url]: https://packagephobia.com/result?p=n-code-live@latest
+[download-tag]: https://img.shields.io/npm/dm/n-code-live.svg?logo=docusign
 
-  console.log('还支持script标签', el);
+## 安装依赖
 
-  // 你也可以写 JSX 语法, 比如箭头函数
-  setInterval(() => {
-    el.style.color = flag ? 'red' : 'blue';
-    flag = !flag;
-  }, 1000);
-    <\/script>`;
-
-  htmlLive.source = htmlText.value;
-  jsxText.value = `
-// 支持 ts
-let el: HTMLElement | null = null;
-let flag = false;
-
-createEffect(() => {
-  console.log("还支持ts", el);
-});
-
-// 你也可以写 JSX 语法, 比如箭头函数
-setInterval(() => {
-  if (el) {
-    el.style.color = flag ? "red" : "blue";
-  }
-  flag = !flag;
-}, 1000);
-
-render(
-  <>
-    <p
-      ref={(e) => (el = e)}
-      style={{
-        color: "red",
-      }}
-    >
-      这是渲染的jsx标签
-    </p>
-    <p
-      style={{
-        color: "red",
-      }}
-    >
-      这是渲染的jsx标签
-    </p>
-  </>
-);
-    `;
-
-  jsxLive.source = jsxText.value;
-  function setJSX(e) {
-    jsxLive.source = e.target.value;
-  }
-  jsxText.addEventListener("change", setJSX);
-
-  htmlText.addEventListener("input", function (e) {
-    htmlLive.source = e.target.value;
-  });
-</script>
+```shell
+npm install
+# or
+yarn install
 ```
 
-## API
+## 启动项目
 
-| 属性       | 说明                       | 类型              | 默认值  | 版本 |
-| ---------- | -------------------------- | ----------------- | ------- | ---- |
-| jsx        | 是否为 jsx 语法            | `boolean`         | `false` | -    |
-| source     | 需要渲染的代码             | `string`          | -       | -    |
-| components | 需要插入到代码中的局部变量 | `MDXComponents`   | -       | -    |
-| transform  | 代码配置项                 | `TransformOption` | -       | -    |
+```shell
+npm start
+# or
+yarn start
+```
+
+## 打包项目
+
+```shell
+npm run build
+# or
+yarn build
+```
+
+## 打包项目`使用自定义配置`
+
+> 在打包其它有特殊配置的 bundle 时, 可以通过命令行参数来加载额外的配置文件;
+
+例如: 使用 **config/index.ts** 与 **config/prod.ts** 合并后的配置进行编译.
+
+```shell
+npm run build --config=prod
+# or
+yarn build config=prod
+```
+
+## 配置文档
+
+[click](https://monako97.github.io/neko-ui/@moneko/config)
