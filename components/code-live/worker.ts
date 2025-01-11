@@ -1,4 +1,4 @@
-import sucraseRaw from '../../sucrase/sucrase.js?raw';
+import sucraseRaw from '../../sucrase/index.js?raw';
 
 import type { TransformOption } from '.';
 

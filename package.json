@@ -20,7 +20,7 @@
     "@commitlint/cli": "19.6.1",
     "@commitlint/config-conventional": "19.6.0",
     "@moneko/common": "1.6.0",
-    "@moneko/core": "3.28.5",
+    "@moneko/core": "3.28.7",
     "@moneko/css": "1.1.5",
     "@moneko/solid": "1.10.6",
     "@moneko/stylelint": "1.0.2",

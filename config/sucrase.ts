@@ -7,11 +7,9 @@ const conf: Partial<ConfigType> = {
   output: {
     library: {
       name: 'sucrase',
-      type: 'umd',
-      umdNamedDefine: true,
     },
     path: resolveProgram('sucrase'),
-    filename: 'sucrase.js',
+    filename: 'index.js',
   },
   splitChunk: false,
   runtimeChunk: false,

@@ -1,12 +1,14 @@
 # Change log
 
-## [v1.3.2-beta.4](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.3...v1.3.2-beta.4) (2025-1-11)
+## [v2.0.0](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.4...v2.0.0) (1-11-2025)
+
+## [v1.3.2-beta.4](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.3...v1.3.2-beta.4) (1-11-2025)
 
 ### 🐛 Bug Fixes
 
 - worker ([0381851](git@github.com:monako97/n-code-live/commit/0381851372924a42d95297ddc0c57f374c355454))
 
-## [v1.3.2-beta.3](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.2...v1.3.2-beta.3) (2025-1-11)
+## [v1.3.2-beta.3](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.2...v1.3.2-beta.3) (1-11-2025)
 
 ### 🐛 Bug Fixes
 
@@ -16,19 +18,19 @@
 
 - info ([04d72f1](git@github.com:monako97/n-code-live/commit/04d72f1f3d761776fa3215adc8e22dc2f54f6e9f))
 
-## [v1.3.2-beta.2](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.1...v1.3.2-beta.2) (2025-1-11)
+## [v1.3.2-beta.2](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.1...v1.3.2-beta.2) (1-11-2025)
 
 ### ✨ Features
 
 - worker ([e73e758](git@github.com:monako97/n-code-live/commit/e73e75852a0945371e90a8bcc0493756f7cf0dda))
 
-## [v1.3.2-beta.1](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.0...v1.3.2-beta.1) (2025-1-10)
+## [v1.3.2-beta.1](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.0...v1.3.2-beta.1) (1-10-2025)
 
 ### ✨ Features
 
 - worker ([93ab3bf](git@github.com:monako97/n-code-live/commit/93ab3bfc22537e6a2678eae9f39b9af3e7670929))
 
-## [v1.3.2-beta.0](git@github.com:monako97/n-code-live/compare/1.0.6...v1.3.2-beta.0) (2025-1-10)
+## [v1.3.2-beta.0](git@github.com:monako97/n-code-live/compare/1.0.6...v1.3.2-beta.0) (1-10-2025)
 
 ### ✨ Features
 
