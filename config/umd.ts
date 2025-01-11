@@ -7,6 +7,7 @@ const conf: Partial<ConfigType> = {
   output: {
     path: resolveProgram('umd'),
     filename: 'index.js',
+    publicPath: './',
   },
   splitChunk: false,
   runtimeChunk: false,

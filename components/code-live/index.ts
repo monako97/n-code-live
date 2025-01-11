@@ -1,6 +1,8 @@
 import type { JSXElement } from 'solid-js';
 import { isFunction } from '@moneko/common';
 
+import { create } from './worker';
+
 export class CodeLive extends HTMLElement {
   timer?: NodeJS.Timeout;
   connected = false;
@@ -85,10 +87,11 @@ export class CodeLive extends HTMLElement {
     this.mount();
   }
 
-  setupWorker(enable: boolean) {
+  async setupWorker(enable: boolean) {
     if (enable) {
       if (!this._worker) {
-        this._worker = new Worker(new URL('./worker.ts', import.meta.url));
+        // this._worker = new Worker(new URL('./worker.ts', import.meta.url));
+        this._worker = new Worker(await create());
         this._worker.addEventListener('message', this.workerMessage.bind(this));
       }
     } else if (this._worker) {
@@ -122,11 +125,11 @@ export class CodeLive extends HTMLElement {
   mount() {
     if (this.connected) {
       clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
+      this.timer = setTimeout(async () => {
         clearTimeout(this.timer);
         this.timer = void 0;
         try {
-          this.setupWorker(this.jsx);
+          await this.setupWorker(this.jsx);
           this.classList.add('compiling');
           this.appendChild(this._style!);
 

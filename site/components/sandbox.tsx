@@ -5,10 +5,11 @@ import examples, { type ExampleModule } from '@app/example';
 import Fallback from '@app/fallback';
 import { isFunction } from '@moneko/common';
 import * as PKG from '@pkg';
-import { CodeLive, type CodeLiveProps } from 'n-code-live';
 import type { Language } from 'neko-ui';
 import * as NekoUI from 'neko-ui';
 import { customElement } from 'solid-element';
+
+import { CodeLive, type CodeLiveProps } from '../../umd/index.js';
 
 import { codeNoShadowCss, groupCss, mdNoShadowCss, sandboxCss } from './sandbox.style';
 
