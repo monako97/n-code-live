@@ -10,7 +10,7 @@ declare global {
 
 let SUCRASE_URL: string | null, WORKER_URL: string | null;
 
-async function createSucrase() {
+function createSucrase() {
   return URL.createObjectURL(
     new Blob([sucraseRaw], {
       type: 'application/javascript',
@@ -26,8 +26,8 @@ function createURL() {
       let codeTrimmed = e.data.code
         .trim()
         .replace(/;$/, '')
-        // Remove single-line comments
-        .replace(/\/\/.*$/gm, '')
+        // Remove single-line comments (excluding potential URLs)
+        .replace(/\/\/(?!\S*\.\S+).*$/gm, '')
         // Remove import statements
         .replace(/import\s+.*?;?\n/g, '')
         // Remove empty lines
@@ -36,23 +36,28 @@ function createURL() {
         .replace(/default\s+(\w+);?$/, 'render(<$1 />);');
 
       codeTrimmed = /^<[\s\S]*>$/.test(codeTrimmed) ? `<>${codeTrimmed}</>` : codeTrimmed;
-      const result = transform(
-        codeTrimmed.includes('render(')
-          ? codeTrimmed.replace('render(', 'return (')
-          : `return (${codeTrimmed})`,
-        Object.assign(
-          {
-            transforms: ['jsx', 'typescript', 'imports'],
-            jsxPragma: 'jsx',
-            jsxFragmentPragma: 'Fragment',
-            jsxImportSource: 'solid-js/h',
-            production: true,
-          },
-          e.data.options,
-        ),
-      ).code;
 
-      self.postMessage(result);
+      try {
+        const result = transform(
+          codeTrimmed.includes('render(')
+            ? codeTrimmed.replace('render(', 'return (')
+            : `return (${codeTrimmed})`,
+          Object.assign(
+            {
+              transforms: ['jsx', 'typescript', 'imports'],
+              jsxPragma: 'jsx',
+              jsxFragmentPragma: 'Fragment',
+              jsxImportSource: 'solid-js/h',
+              production: true,
+            },
+            e.data.options,
+          ),
+        ).code;
+
+        self.postMessage(result);
+      } catch (err) {
+        self.postMessage(err);
+      }
     }
     self.addEventListener('message', message);
   }
@@ -65,10 +70,10 @@ function createURL() {
 }
 let count = 0;
 
-export async function create() {
+export function create() {
   count++;
   if (!SUCRASE_URL) {
-    SUCRASE_URL = await createSucrase();
+    SUCRASE_URL = createSucrase();
   }
   if (!WORKER_URL) {
     WORKER_URL = createURL();

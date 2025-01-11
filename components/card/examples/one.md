@@ -7,3 +7,4 @@ order: 1
 // 这里开始写你的案例代码
 
 <Card title={<span>Card的自定义标题</span>} />
+<n-avatar src="https://gw.alipayobjects.com/zos/alicdn/HJtErOC0O/avatar.png" />

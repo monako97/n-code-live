@@ -1,7 +1,7 @@
 import type { JSXElement } from 'solid-js';
 import { isFunction } from '@moneko/common';
 
-import { create } from './worker';
+import { create, dispose } from './worker';
 
 export class CodeLive extends HTMLElement {
   timer?: NodeJS.Timeout;
@@ -23,15 +23,21 @@ export class CodeLive extends HTMLElement {
   static get observedAttributes() {
     return ['jsx', 'components', 'source', 'transform', 'renderJsx'];
   }
-  workerMessage(e: MessageEvent<string>) {
+  workerMessage(e: MessageEvent<string | Error>) {
     const code = e.data;
 
+    if (code instanceof Error) {
+      this.dispose();
+      this.error = code;
+      return;
+    }
     try {
       const comp = this.compilerScript(code);
 
       this.dispose();
       this.cleanup = this.renderJsx(comp, this.container);
     } catch (error) {
+      this.dispose();
       this.error = error as Error;
     }
   }
@@ -87,17 +93,17 @@ export class CodeLive extends HTMLElement {
     this.mount();
   }
 
-  async setupWorker(enable: boolean) {
+  setupWorker(enable: boolean) {
     if (enable) {
       if (!this._worker) {
-        // this._worker = new Worker(new URL('./worker.ts', import.meta.url));
-        this._worker = new Worker(await create());
+        this._worker = new Worker(create());
         this._worker.addEventListener('message', this.workerMessage.bind(this));
       }
     } else if (this._worker) {
       this._worker.removeEventListener('message', this.workerMessage.bind(this));
       this._worker.terminate();
       this._worker = void 0;
+      dispose();
     }
   }
   get jsx(): boolean {
@@ -125,11 +131,11 @@ export class CodeLive extends HTMLElement {
   mount() {
     if (this.connected) {
       clearTimeout(this.timer);
-      this.timer = setTimeout(async () => {
+      this.timer = setTimeout(() => {
         clearTimeout(this.timer);
         this.timer = void 0;
         try {
-          await this.setupWorker(this.jsx);
+          this.setupWorker(this.jsx);
           this.classList.add('compiling');
           this.appendChild(this._style!);
 
@@ -151,6 +157,7 @@ export class CodeLive extends HTMLElement {
             });
           }
         } catch (error) {
+          this.dispose();
           this.error = error as Error;
         }
       }, 0);
