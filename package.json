@@ -12,7 +12,6 @@
     "prepare": "mo githooks pre-commit=\"npm run precommit\" commit-msg=\"npx --no -- commitlint --edit ${1}\"",
     "precommit": "npm run lint && npm run changelog"
   },
-  "license": "MIT",
   "keywords": [
     "n-code-live",
     "ui libraries"
@@ -31,7 +30,20 @@
     "solid-js": "1.8.23",
     "sucrase": "3.35.0"
   },
-  "author": "moneko",
+  "author": {
+    "name": "moneko",
+    "url": "https://github.com/monako97",
+    "email": "meow.monako@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/monako97/n-code-live"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "files": [
     "LICENSE",
     "README.md",
