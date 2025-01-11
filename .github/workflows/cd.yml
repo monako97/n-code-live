@@ -43,6 +43,8 @@ jobs:
             - recursive: false
       - name: 'lint'
         run: pnpm run lint
+      - name: 'Build Sucrase'
+        run: pnpm build -- --config=sucrase no-es no-lib
       - name: 'Build UMD'
         run: pnpm run build -- --config=umd
       - name: 'Build Github Pages'

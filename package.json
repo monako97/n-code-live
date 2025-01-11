@@ -1,6 +1,6 @@
 {
   "name": "n-code-live",
-  "version": "1.3.2-beta.1",
+  "version": "1.3.2-beta.2",
   "description": "solid js libraries",
   "main": "umd/index.js",
   "types": "lib/code-live/index.d.ts",

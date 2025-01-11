@@ -1,6 +1,16 @@
-import { transform } from 'sucrase';
+import sucraseRaw from '../../sucrase/sucrase.js?raw';
 
 import type { TransformOption } from '.';
+
+declare global {
+  interface Window {
+    sucrase: typeof import('sucrase');
+  }
+}
+const sucrase_url = URL.createObjectURL(new Blob([sucraseRaw], { type: 'text/javascript' }));
+
+self.importScripts(sucrase_url);
+const { transform } = self.sucrase;
 
 function message(e: MessageEvent<{ code: string; options: TransformOption }>) {
   let codeTrimmed = e.data.code

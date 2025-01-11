@@ -1,5 +1,11 @@
 # Change log
 
+## [v1.3.2-beta.1](https://github.com/monako97/n-code-live/compare/v1.3.2-beta.0...v1.3.2-beta.1) (1-10-2025)
+
+### ✨ Features
+
+- worker ([93ab3bf](https://github.com/monako97/n-code-live/commit/93ab3bfc22537e6a2678eae9f39b9af3e7670929))
+
 ## [v1.3.2-beta.0](https://github.com/monako97/n-code-live/compare/1.0.6...v1.3.2-beta.0) (1-10-2025)
 
 ### ✨ Features
