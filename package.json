@@ -16,6 +16,7 @@
     "n-code-live",
     "ui libraries"
   ],
+  "sideEffects": false,
   "devDependencies": {
     "@commitlint/cli": "19.6.1",
     "@commitlint/config-conventional": "19.6.0",
