@@ -16,6 +16,7 @@ import {
   registry,
   Segmented,
   Skeleton,
+  Switch,
   theme,
   Typography,
 } from 'neko-ui';
@@ -46,6 +47,7 @@ registry(
   Popover,
   Typography,
   Menu,
+  Switch,
 );
 function App(p: RouteProps<string>) {
   let box: HTMLDivElement | undefined;

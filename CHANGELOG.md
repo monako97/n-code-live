@@ -4,6 +4,7 @@
 
 ### 🐛 Bug Fixes
 
+- docs ([256045c](git@github.com:monako97/n-code-live/commit/256045c16d5a9f5ecebefe15076e26157b7426e2))
 - docs ([fbfb1c6](git@github.com:monako97/n-code-live/commit/fbfb1c6473f0c0061baf2522b5690479dfa38bbe))
 
 ## [v2.0.1](git@github.com:monako97/n-code-live/compare/v2.0.0...v2.0.1) (4-9-2025)
