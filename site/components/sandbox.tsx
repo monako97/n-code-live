@@ -5,7 +5,7 @@ import examples, { type ExampleModule } from '@app/example';
 import Fallback from '@app/fallback';
 import { isFunction } from '@moneko/common';
 import { Card, CodeLive, type CodeLiveProps } from 'n-code-live';
-import { registry } from 'neko-ui';
+import { type Language, registry } from 'neko-ui';
 import { customElement } from 'solid-element';
 
 import { code, html, react, solid } from './icons';
@@ -142,7 +142,7 @@ export function Sandbox(_props: SandboxProps) {
                 hide: !open(),
               }}
               code={sources()[current().lang]}
-              language={(current().lang === 'html' ? 'html js' : current().lang) as NekoUI.Language}
+              language={(current().lang === 'html' ? 'html js' : current().lang) as Language}
               edit={true}
               css={codeNoShadowCss}
               onChange={codeChange}
