@@ -1,24 +1,65 @@
 import { createEffect, createMemo, For, Show } from 'solid-js';
 import docs from '@app/docs';
 import { getPathName, type RouteProps, useLocation } from '@moneko/solid';
-import { mdStyle, theme } from 'neko-ui';
+import {
+  Avatar,
+  BackTop,
+  Button,
+  Code,
+  Dropdown,
+  Img,
+  Md,
+  mdStyle,
+  Menu,
+  Popover,
+  Provider,
+  registry,
+  Segmented,
+  Skeleton,
+  theme,
+  Typography,
+} from 'neko-ui';
 
 import Coverage from '@/components/coverage';
 import Footer from '@/components/footer';
 import Pagination from '@/components/pagination';
+import { Sandbox, SandboxGroup } from '@/components/sandbox';
 import Sider from '@/components/sider';
 
 import ChangeLog from '../CHANGELOG.md?raw';
 
 import './layout.global.css';
 
-import '@/components/sandbox';
-
+registry(
+  Avatar,
+  Sandbox,
+  SandboxGroup,
+  Md,
+  Skeleton,
+  BackTop,
+  Dropdown,
+  Button,
+  Img,
+  Segmented,
+  Provider,
+  Code,
+  Popover,
+  Typography,
+  Menu,
+);
 function App(p: RouteProps<string>) {
   let box: HTMLDivElement | undefined;
   const { isDark, scheme } = theme;
   const location = useLocation();
-  const doc = createMemo(() => docs[getPathName(location)]);
+  const keys = Object.keys(docs);
+  const doc = createMemo(() => {
+    const base = getPathName(location);
+
+    return keys
+      .filter((key) => key === base || key.startsWith(`${base}/`))
+      .map((name) => docs[name])
+      .flat();
+  });
 
   createEffect(() => {
     box?.scrollTo({ top: 0, behavior: 'smooth' });

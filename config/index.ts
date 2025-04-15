@@ -9,11 +9,6 @@ const conf: Partial<ConfigType> = {
   },
   splitChunk: false,
   fallbackCompPath: '@/components/fallback',
-  importOnDemand: {
-    '@moneko/common': {
-      transform: 'esm/${member}',
-    },
-  },
 };
 
 export default conf;

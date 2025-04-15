@@ -1,5 +1,11 @@
 # Change log
 
+## [v2.0.1](git@github.com:monako97/n-code-live/compare/v2.0.0...v2.0.1) (4-9-2025)
+
+### 🐛 Bug Fixes
+
+- docs ([d472ae4](git@github.com:monako97/n-code-live/commit/d472ae49814b805d5edf32008656b855800c3c98))
+
 ## [v2.0.0](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.4...v2.0.0) (1-11-2025)
 
 ## [v1.3.2-beta.4](git@github.com:monako97/n-code-live/compare/v1.3.2-beta.3...v1.3.2-beta.4) (1-11-2025)

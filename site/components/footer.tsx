@@ -1,6 +1,6 @@
-import app from '@app/info';
+import { author, projectName, repository } from '@app/info';
 
-import './footer.css';
+import './footer.global.css';
 
 function Footer() {
   const year = new Date().getFullYear();
@@ -10,20 +10,15 @@ function Footer() {
       <p>
         <a
           class="n-site-footer-link"
-          href={app.repository?.url}
+          href={repository?.url}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {app.projectName}
+          {projectName}
         </a>
         {` Ⓒ ${year} Made with ❤️‍🔥 by `}
-        <a
-          class="n-site-footer-link"
-          href={app.author?.url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {app.author?.name}
+        <a class="n-site-footer-link" href={author?.url} target="_blank" rel="noopener noreferrer">
+          {author?.name}
         </a>
       </p>
     </footer>

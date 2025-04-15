@@ -1,7 +1,7 @@
-import neko from 'eslint-config-neko';
+import solid from '@moneko/core/eslint/solid';
 
 const conf = [
-  ...neko.configs.recommended,
+  ...solid,
   { ignores: ['**/**/*.mdx?', 'lib', 'docs', 'coverage', 'prism.js'] },
 ];
 

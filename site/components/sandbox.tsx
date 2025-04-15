@@ -4,14 +4,14 @@ import * as SolidWeb from 'solid-js/web';
 import examples, { type ExampleModule } from '@app/example';
 import Fallback from '@app/fallback';
 import { isFunction } from '@moneko/common';
-import * as PKG from '@pkg';
-import { CodeLive, type CodeLiveProps } from 'n-code-live';
-import type { Language } from 'neko-ui';
-import * as NekoUI from 'neko-ui';
+import { Card, CodeLive, type CodeLiveProps } from 'n-code-live';
+import { registry } from 'neko-ui';
 import { customElement } from 'solid-element';
 
+import { code, html, react, solid } from './icons';
 import { codeNoShadowCss, groupCss, mdNoShadowCss, sandboxCss } from './sandbox.style';
 
+registry(CodeLive);
 const { createEffect, createMemo, createSignal, mergeProps, onMount } = Solid;
 const { For, Show, render, Portal, Dynamic } = SolidWeb;
 
@@ -30,18 +30,22 @@ interface SandboxProps extends Omit<ExampleModule, 'title'> {
   description?: string;
 }
 
+const icons: Record<string, () => SVGSVGElement> = {
+  HTML: html,
+  JSX: solid,
+  solid: solid,
+  REACT: react,
+};
 const components: CodeLiveProps['components'] = {
   ...Solid,
-  ...PKG,
-  NekoUI,
-  CodeLive,
+  Card,
   Portal,
   Dynamic,
   jsx: $$jsx,
   Fragment: Fragment,
 };
 
-function Sandbox(_props: SandboxProps) {
+export function Sandbox(_props: SandboxProps) {
   const props = mergeProps({ codes: {} } as SandboxProps, _props);
   const [sources, setSources] = createSignal<Record<string, string>>({});
   const [current, setCurrent] = createSignal({
@@ -52,7 +56,7 @@ function Sandbox(_props: SandboxProps) {
   const [open, setOpen] = createSignal(false);
   const hasDesc = createMemo(() => {
     if (typeof props.description === 'string') {
-      return !!props.description?.trim().length;
+      return !!props.description.trim().length;
     }
     return false;
   });
@@ -77,6 +81,7 @@ function Sandbox(_props: SandboxProps) {
     Object.keys(props.codes).map((k) => ({
       value: k,
       label: k.toLocaleUpperCase(),
+      icon: icons[k.toLocaleUpperCase()],
     })),
   );
 
@@ -119,7 +124,7 @@ function Sandbox(_props: SandboxProps) {
               data-open={open()}
               onClick={() => setOpen((prev) => !prev)}
             >
-              编辑
+              编辑 {code()}
             </span>
           </section>
           <Show when={hasDesc()}>
@@ -137,7 +142,7 @@ function Sandbox(_props: SandboxProps) {
                 hide: !open(),
               }}
               code={sources()[current().lang]}
-              language={current().lang === 'SolidJS' ? 'tsx' : (current().lang as Language)}
+              language={(current().lang === 'html' ? 'html js' : current().lang) as NekoUI.Language}
               edit={true}
               css={codeNoShadowCss}
               onChange={codeChange}
@@ -149,23 +154,25 @@ function Sandbox(_props: SandboxProps) {
   );
 }
 
-customElement(
-  'site-sandbox',
-  {
-    legend: '',
-    description: void 0,
-    codes: {},
-    order: void 0,
-  },
-  Sandbox,
-);
+Sandbox.registry = () => {
+  customElement(
+    'site-sandbox',
+    {
+      legend: '',
+      description: void 0,
+      codes: {},
+      order: void 0,
+    },
+    Sandbox,
+  );
+};
 
 interface SandboxGroupProps {
   name: string;
   ignore?: string[];
 }
 
-function SandboxGroup(props: SandboxGroupProps) {
+export function SandboxGroup(props: SandboxGroupProps) {
   async function load(name: string) {
     let box: () => Solid.JSX.Element = () => null;
     const exampleModule = examples[`@app/example/${name}`];
@@ -212,14 +219,15 @@ function SandboxGroup(props: SandboxGroupProps) {
   );
 }
 
-customElement(
-  'site-sandbox-group',
-  {
-    ignore: [],
-    name: '',
-  },
-  SandboxGroup,
-);
-
+SandboxGroup.registry = () => {
+  customElement(
+    'site-sandbox-group',
+    {
+      ignore: [],
+      name: '',
+    },
+    SandboxGroup,
+  );
+};
 export type SandboxElement = CustomElement<ExampleModule>;
 export type SandboxGroupElement = CustomElement<SandboxGroupProps>;

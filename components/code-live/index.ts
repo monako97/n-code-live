@@ -204,10 +204,11 @@ export class CodeLive extends HTMLElement {
     this.dispose();
     this.setupWorker(false);
   }
-}
-
-if (!customElements.get('n-code-live')) {
-  customElements.define('n-code-live', CodeLive);
+  static registry() {
+    if (!customElements.get('n-code-live')) {
+      customElements.define('n-code-live', CodeLive);
+    }
+  }
 }
 
 type FunctionComponent<Props> = (props: Props) => JSX.Element | null;
@@ -270,6 +271,15 @@ declare module 'solid-js' {
     // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     export interface IntrinsicElements extends CustomElementTags {}
   }
+}
+declare module 'react' {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  export namespace JSX {
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    interface IntrinsicElements extends CustomElementTags {}
+  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  interface HTMLElementTagNameMap extends CustomElementTags {}
 }
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
