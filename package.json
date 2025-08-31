@@ -1,6 +1,6 @@
 {
   "name": "n-code-live",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "solid js libraries",
   "main": "umd/index.js",
   "types": "lib/code-live/index.d.ts",
@@ -25,8 +25,8 @@
   "devDependencies": {
     "@commitlint/cli": "19.8.0",
     "@commitlint/config-conventional": "19.8.0",
-    "@moneko/common": "1.8.1",
-    "@moneko/core": "3.42.1",
+    "@moneko/common": "1.10.0",
+    "@moneko/core": "3.50.5",
     "@moneko/css": "1.2.0",
     "@moneko/solid": "1.11.1",
     "husky": "9.1.7",
